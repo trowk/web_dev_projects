@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Survey Form</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<header> 
+  <h1 id="title">Miscellaneous Survey Form</h1>
+  <p id="description"><em>Tell us about yourself!</em></p>
+</header>
+<main>
+  <form id="survey-form" action="#">
+    
+    <label id="name-label" for="name">Name:</label><br>
+    <input type="text" id="name" name="name" placeholder="firstname lastname" required><br>
+    
+    <label id="email-label" for="email">Email:</label><br>
+    <input type="email" id="email" name="email" placeholder="username@domain.com" required><br>
+    
+    <label id="number-label" for="number">Age:</label><br>
+    <input type="number" id="number" name="number" placeholder="e.g. 22" min="0" max="100"><br>
+    
+    <label id="dropdown-label" for="dropdown">What is your favorite icecream?</label><br>
+    <select id="dropdown">
+      <option value="Vanilla">Vanilla</value>
+      <option value="Chocolate">Chocolate</value>
+      <option value="Cookies N' Cream">Cookies N' Cream</value>
+      <option value="Mint Chocolate Chip">Mint Chocolate Chip</value>
+      <option value="Cookie Dough">Cookie Dough</value>
+      <option value="Strawberry">Strawberry</value>
+      <option value="Rocky Road">Rocky Road</value>
+      <option value="Neopolitan">Neopolitan</value>
+      <option value="Coffee">Coffee</value>
+    </select><br>
+
+    <label id="radio-label" for="dog-cat">Are you a dog-person or cat-person?</label><br>
+    <label for="cat"><input id="cat" name="dog-cat" value="cat" type="radio">Cat-person</label>
+     <label for="dog"><input id="dog" name="dog-cat" value="dog" type="radio">Dog-person</label><br>
+        
+    <label id="check-label" for="pizza-toppings">What pizza toppings do you like?</label><br>
+     <label for="pepperoni"><input id="pepperoni" name="pizza-toppings" value="pepperoni" type="checkbox">Pepperoni</label>
+    <label for="pineapple"><input id="pineapple" name="pizza-toppings" value="pineapple" type="checkbox">Pineapple</label>
+    <label for="onion"><input id="onion" value="onion" name="pizza-toppings" type="checkbox">Onion</label>
+    <label for="sausage"><input id="sausage" value="sausage" name="pizza-toppings" type="checkbox">Sausage</label>
+    <label for="green-peppers"><input id="green-peppers" name="pizza-toppings" value="green-peppers" type="checkbox">Green Peppers</label><br>
+
+    <label id="comments-label" for="comments">Comments:</label><br>
+    <textarea rows="10" cols="100" id="comments" name="comments">Put any comments here...</textarea><br>
+    <button id="submit" type="submit">Submit</button>
+  </form>
+</main>
+<!-- partial -->
+  
+</body>
+</html>

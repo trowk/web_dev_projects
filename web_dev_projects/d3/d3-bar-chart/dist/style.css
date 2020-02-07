@@ -1,0 +1,37 @@
+:root {
+  --wave: #66A5AD;
+  --light-blue:#303F9F;
+  --dark-blue:#BBDEFB;
+}
+
+body {
+  background-color: var(--wave);
+}
+
+.bar-container {
+  text-align: center;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 5px 5px 10px 4px black;
+  width: 1100px;
+  height: 650px;
+  margin: 30px auto;
+}
+
+svg {
+  padding: 30px;
+}
+
+.bar {
+  opacity: 0.7;
+  fill: navy;  
+}
+
+.tooltip {
+  background-color: var(--dark-blue);
+  border: 1px solid var(--light-blue);
+  position: absolute;
+  opacity: 0;
+  font-size: 20px;
+  padding: 5px;
+}

@@ -1,0 +1,129 @@
+const req = new XMLHttpRequest();
+req.open('GET', 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json', true);
+req.send();
+req.onload = () => {
+  const dataSet = JSON.parse(req.responseText);
+  const format = d3.timeFormat('%M:%S');
+  dataSet.forEach(d=>{
+    d.Time = new Date(0,0,0,0,d.Time.split(':')[0], d.Time.split(':')[1], 0);
+  });
+  console.log(dataSet);
+  const padding = 75;
+  const width = 1000;
+  const height= 650;
+  const svg = d3.select('#scatter-plot')
+                .append('svg')
+                .attr('width', width+padding)
+                .attr('height', height+padding)
+                .attr('class', 'svg')
+                .attr('id', 'svg');
+  const tooltip = d3.select('#scatter-plot')
+                    .append('div')
+                    .attr('class', 'tooltip')
+                    .attr('id', 'tooltip')
+                    .style('opacity', '0');
+  const xScale = d3.scaleLinear()
+                   .domain([d3.min(dataSet, d=>d.Year), d3.max(dataSet, d=>d.Year)])
+                   .range([padding, width-padding]);
+  const yScale = d3.scaleTime()
+                   .domain([d3.min(dataSet, d=>d.Time), d3.max(dataSet, d=>d.Time)])
+                   .range([height-padding, padding]);
+  const radius = 8;
+  svg.selectAll('circle')
+     .data(dataSet)
+     .enter()
+     .append('circle')
+     .attr('data-xvalue', d=>d.Year)
+     .attr('data-yvalue', d=>d.Time)
+     .attr('cx', d=>xScale(d.Year))
+     .attr('cy', d=>yScale(d.Time))
+     .attr('r', radius)
+     .attr('class', 'dot')
+     .style('border', '2px solid black')
+     .attr('fill', d=>d.Doping==""?'blue':'red')
+     .on('mouseover', function(d) {
+        d3.select(this).style("opacity", "0.2");
+        tooltip.style('opacity', 0.9);
+        tooltip.attr('id', 'tooltip');
+        tooltip.attr('data-year', d.Year);
+        const minutes = String((d.Seconds-d.Seconds%60)/60);
+        const seconds = d.Seconds%60 < 10
+                        ? '0'+d.Seconds%60
+                        : d.Seconds%60;
+        const time = minutes + ":" + seconds;
+        tooltip.html(
+          d.Name + ": " + d.Nationality + "<br />"
+          +"Year: "+d.Year+", Time: "+time+"<br />"
+          +d.Doping)
+               .style("left", d3.event.pageX + 15+ "px")
+               .style("top", d3.event.pageY - 70 + "px")
+      })
+      .on('mouseout', function() {
+        d3.select(this).style("opacity", "1.0");
+        tooltip.style("opacity", 0);
+        tooltip.html('');
+      });
+  const xAxis = d3.axisBottom(xScale)
+                  .tickFormat(d3.format("d"));
+  const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%M:%S"));
+  svg.append('g')
+     .attr('transform', 'translate(0,'+(height-60)+')')
+     .attr('id', 'x-axis')
+     .call(xAxis);
+  svg.append('g')
+     .attr('transform', 'translate(60,0)')
+     .attr('id', 'y-axis')
+     .call(yAxis);
+  svg.append('text')
+     .attr('id', 'y-label')
+     .attr('class', 'y-label')
+     .attr("text-anchor", "end")
+     .attr("dy", "1em")
+     .attr('dx', '-20em')
+     .attr("transform", "rotate(-90)")
+     .text("Time");
+  
+    svg.append('text')
+     .attr('id', 'x-label')
+     .attr('class', 'x-label')
+     .attr("text-anchor", "end")
+     .attr("x", width/2)
+     .attr("y", height)
+     .text("Year");
+  
+  const legendWidth = 200;
+  const legendHeight = 100;
+  const legend = svg.append("g")
+                    .attr("class", "legend")
+                    .attr('id', 'legend')
+                    .attr("x", width-legendWidth)
+                    .attr("y", height/2)
+                    .attr("height", legendHeight)
+                    .attr("width", legendWidth);
+  const blockHeight = 20;
+  const blockWidth = 20;
+  const legendStart = width-legendWidth;
+  const dopingY = height/2 + 5;
+  const normalY = height/2 + 55;
+  legend.append('rect')
+        .attr("x", legendStart)
+        .attr("y", dopingY)
+        .attr("height", blockHeight)
+        .attr("width", blockWidth)
+        .attr('fill', 'red');
+  legend.append('rect')
+        .attr("x", legendStart)
+        .attr("y", normalY)
+        .attr("height", blockHeight)
+        .attr("width", blockWidth)
+        .attr('fill', 'blue');
+  const descriptionOffset = blockWidth + 20;
+  legend.append('text')
+        .attr("x", legendStart+descriptionOffset)
+        .attr("y", normalY + blockHeight/2)
+        .text('No doping allegations')
+  legend.append('text')
+        .attr("x", legendStart+descriptionOffset)
+        .attr("y", dopingY + blockHeight/2)
+        .text('Admitted to or accused of doping')
+};

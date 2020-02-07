@@ -1,0 +1,23 @@
+body {
+  padding: 0px;
+}
+
+.borders {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  min-height: 500px;
+  width: 100vw;
+  z-index: -1;
+}
+
+#quote-box { 
+  margin-top: 20vh;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  border-radius: 2%;
+  padding: 20px;
+  z-index: 10;
+  background-color: white;
+}

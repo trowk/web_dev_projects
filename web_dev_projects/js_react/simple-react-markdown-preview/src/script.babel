@@ -1,0 +1,120 @@
+$(document).ready(function() {
+  $(".bar-text").css("margin-left", "20px");
+});
+
+const defaultInput = `# Welcome to React Markdown Previewer
+## You can have subheadings
+[Or Links!](https://www.google.com)
+You can write code like \`<div><\div>\`
+Or like <br />\`\`\`
+int sum=0;
+for(int i=0; i<10; i++){sum+=i};  
+return sum; \`\`\`<br />
+Lists can be made like
+- And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+
+
+1. And there are numbererd lists too.
+1. Use just 1s if you want! 
+1. But the list goes on...
+- Even if you use dashes
+* or asterisks
+> Blockquotes are kind of cool
+
+**But don't forget to add images**
+![React Logo w/ Text](https://goo.gl/Umyytc)
+`;
+marked.setOptions({
+  breaks: true
+});
+const Editor = props => {
+  console.log(props.height);
+  return (
+    <textarea id="editor" class="editor" style={props.height} onChange={props.handleInput} type="text" value={props.input}>
+    </textarea>
+  );
+};
+
+const Previewer = props => {
+  return (
+    <div id="preview" class="previewer" dangerouslySetInnerHTML={{__html: marked(props.input)}} />
+  );
+};
+
+const Bar = props => {
+  return (
+    <div id="bar" class="bar">
+        <div id="bar-left" class="bar-left">
+          <i class="fas fa-code icon" />
+          <div id="bar-text" class="bar-text"><strong>{props.name}</strong></div>
+        </div>
+        <button id="expand-button" class="expand" onClick={props.click}>
+          <i class="fas fa-expand icon" />
+        </button>
+      </div>
+  );
+};
+
+class Container extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editorExpanded: false,
+      previewExpanded: false,
+      input: defaultInput
+    };
+    this.handleEditorExpansion = this.handleEditorExpansion.bind(this);
+    this.handlePreviewExpansion = this.handlePreviewExpansion.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  }
+  handleEditorExpansion() {
+    this.setState({
+      editorExpanded: !this.state.editorExpanded
+    });
+  }
+  handlePreviewExpansion() {
+    this.setState({
+      previewExpanded: !this.state.previewExpanded
+    });
+  }
+  handleInput(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  render() {
+    const editorClasses = !this.state.editorExpanded 
+    ? "editor-container" 
+    : "editor-container enlarged-window";
+    const previewClasses = !this.state.previewExpanded 
+    ? "previewer-container" 
+    : "previewer-container enlarged-window";
+    const heightStyle = !this.state.editorExpanded 
+    ? {height: '170px'}
+    : {height: '870px'};
+    return (
+      <div>
+        {this.state.previewExpanded 
+          ? <div />
+          : <div id="editor-container" class={editorClasses}>
+          <Bar name="Editor" click={this.handleEditorExpansion}/>
+          <Editor height={heightStyle} handleInput={this.handleInput} input={this.state.input}/>
+        </div>
+      }
+        
+        {this.state.editorExpanded 
+          ? <div /> 
+          : <div id="previewer-container" class={previewClasses}>
+          <Bar name="Previewer" click={this.handlePreviewExpansion}/>
+          <Previewer input={this.state.input}/>
+        </div>
+        }
+      </div>
+    );
+  }
+};
+
+  ReactDOM.render(<Container />, document.getElementById('body'));

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Technical Documentation Page</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <nav id="navbar">
+      <header><h1 id="title">The C Programming Language</h1></header><br><hr>
+     <ul id="nav-link-list" style="list-style-type:none;">
+      <li><a href="#Hello_World!" class="nav-link" id="nav-Hello_World!">Hello World!</a></li><hr>
+      <li><a href="#Variables" class="nav-link" id="nav-Variables">Variables</a></li><hr>
+      <li><a href="#Data_Types" class="nav-link" id="nav-Data_Types">Data Types</a></li><hr>
+      <li><a href="#Structs" class="nav-link" id="nav-Structs">Structs</a></li><hr>
+      <li><a href="#Constants" class="nav-link" id="nav-Constants">Constants</a></li><hr>
+    </ul>
+  </nav>
+  <main id="main-doc">
+    <section class="main-section" id="Hello_World!">
+      <header><h2 id="Hello_World!_Header">Hello World!</h2></header>
+      <p id="intro_paragraph"> As is tradition, we will begin by writing the "Hello World!" program. The C code is written below.</p>
+      <code id="print_hello_world">int main() { printf("Hello World!"); }</code>
+      <p id="compilation">To compile the code, use the gcc compiler to create the executable a.out.</p>
+      <code id="gcc">gcc hello_world.c</code>
+      <p>Then run the a.out executable to see your computer say hi!</p>
+    </section>
+    <section class="main-section" id="Variables">
+      <header><h2 id="Variables_Header">Variables</h2></header>
+      <p id="variable_description"> We can store data in our program using variables. We use symbolic names to keep track of our variables. For example:</p>
+      <code id="variable_name">int cash=-10;</code>
+      <p id="variable_name_rules"> Variable names must follow certain rules. In the C programming language, variables must always begin with either a letter or an underscore, and variable names must always be composed of only letters, numbers, and underscores.</p>
+    </section>
+    <section class="main-section" id="Data_Types">
+      <header><h2 id="Data_Types_Header">Data Types</h2></header>
+      <p id="data_type_intro">C uses a number of data types. Some of the more common one are:</p>
+      <ul id="data_type_list">
+        <li>int- stores a range of integers.</li>
+        <li>long- stores a range of integers equal or greater than the int data type.</li>
+        <li>float- stores decimal numbers.</li>
+        <li>double- stores decimal numbers with double precision.</li>
+        <li>char- stores characters.</li>
+      </ul>
+      <p id="declare_data_type">When we declare a new variable, we specify the data type before the variable name as shown below.</p>
+      <code id="data_type_code">char alpha;</code>
+    </section>
+    <section class="main-section" id="Structs">
+      <header><h2 id="Structs_Header">Structs</h2></header>
+      <p id="structs-explanation"> We can group several different variables together to form a struct. Structs are objects that can be used to represent a grouping of several different data types.</p>
+      <code id="structs_code">struct a{int b; int c; char d;};</code>
+    </section>
+    <section class="main-section" id="Constants">
+      <header><h2 id="Constants_Header">Constants</h2></header>
+      <p id="const_description"> We can modify variables using the const keyword.</p>
+      <code id="const_code">const int x=5;</code>
+      <p id="const_desciption_cont">x can now not be changed from its initial value of 5.</p> 
+    </section>
+  </main>
+</body>
+<!-- partial -->
+  
+</body>
+</html>
