@@ -12,9 +12,21 @@
             $name = $_REQUEST['name'];
             $email = $_REQUEST['email'];
             $comments = $_REQUEST['comments'];
+            if(isset($_REQUEST['gender'])) {
+                $gender = $_REQUEST['gender'];
+            } else {
+                $gender = NULL;
+            }
             echo '<p>Thank you, <strong>' . $name . '</strong>, for the 
             following comments:</p> <pre>' . $comments . '</pre><p>We will 
-            reply to you at <em>' . $email . '</em>.</p><br>'
+            reply to you at <em>' . $email . '</em>.</p><br>';
+            if($gender == 'M') {
+                echo '<p><strong>Good day, Sir!</srong></p>';
+            } elseif ($gender == 'F') {
+                echo '<p><strong>Good day, Madam!</strong></p>';
+            } else {
+                echo '<p><strong>You forgot to enter your gender!</strong></p>';
+            }
         ?>
     </body>
 </html>
